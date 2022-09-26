@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "e13d404b-d4b9-4cbf-bd67-0c88d0f32bf3",
+		"name": "Reto2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 Obtener todos los personajes personajes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Personaje #17\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"Annie\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{Personaje}}",
+					"host": [
+						"{{url_base}}{{Personaje}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 Obtener listado de pag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test personaje #822\",function(){\r",
+							"var jsonData = pm.response.json();\r",
+							"var detail = jsonData.find(x => x.id== \"822\")\r",
+							"pm.expect(detail.species).to.equal(\"Robot\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{Personaje}}{{pagina}}42",
+					"host": [
+						"{{url_base}}{{Personaje}}{{pagina}}42"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Personaje por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Personaje esperado \", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"Turkey Morty\")\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"var schema = {\r",
+							"    \"items\": {\r",
+							"      \"type\": \"object\",\r",
+							"       \"properties\": \r",
+							"        {\r",
+							"                \"id\": {\"tipe\":\"number\"},\r",
+							"    \"name\": {\"tipe\":\"sting\"},\r",
+							"    \"status\": {\"tipe\":\"sting\"},\r",
+							"    \"species\": {\"tipe\":\"sting\"},\r",
+							"    \"type\": {\"tipe\":\"sting\"},\r",
+							"    \"gender\": {\"tipe\":\"sting\"},\r",
+							"\r",
+							"    \"origin\": {\"tipe\":\"boolean\"},\r",
+							"\r",
+							"    \"location\":  {\"tipe\":\"boolean\"},\r",
+							"\r",
+							"    \"image\":  {\"tipe\":\"string\"},\r",
+							"\r",
+							"    \"episode\": {\"tipe\":\"boolean\"},\r",
+							"\r",
+							"    \"url\":  {\"tipe\":\"string\"},\r",
+							"\r",
+							"    \"created\": {\"tipe\":\"string\"},\r",
+							"        }\r",
+							"    }\r",
+							"};\r",
+							"pm.test(\"Validate schema\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{Personaje}}759",
+					"host": [
+						"{{url_base}}{{Personaje}}759"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Respuesta vacia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Respuesta vacia\", function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{Personaje}}900,1000",
+					"host": [
+						"{{url_base}}{{Personaje}}900,1000"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
